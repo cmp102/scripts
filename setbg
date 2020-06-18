@@ -1,0 +1,11 @@
+#!/bin/sh
+
+BG=~/.local/share/bg
+
+if [ $1 ] 
+then
+	rm $BG 
+	ln -sf $(pwd)/$1 $BG
+fi
+
+feh --bg-fill --no-fehbg -z $BG

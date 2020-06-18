@@ -1,0 +1,35 @@
+#!/bin/sh
+
+LOCK="/tmp/volume.lock"
+
+mkdir $LOCK 2> /dev/null || exit
+
+NOTIF_ID=23333
+
+notif() {
+	volume=$1
+	[ "$2" = "off" ] && muted="🔇" || muted="🔊"
+	dunstify -t 2000 -r $NOTIF_ID  "Volume: $volume% $muted"   "$(getProgressString 11 "🔴" "⭕" $volume)"
+}
+
+toggle() {
+	amixer sset Master toggle
+	canberra-gtk-play -i audio-volume-change &
+}
+up() {
+	amixer sset Master 5%+
+	canberra-gtk-play -i audio-volume-change &
+}
+down() {
+	amixer sset Master 5%-
+	canberra-gtk-play -i audio-volume-change &
+}
+show() {
+	amixer sget Master
+}
+
+$2 $($1 | tail -1 | awk '{print $5" "$6}' | sed -e "s/[^0-9|a-z| ]*//g")
+pkill -RTMIN+10 i3blocks &
+
+
+rm -r $LOCK
