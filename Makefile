@@ -1,4 +1,4 @@
-SCRIPTS = brightness setbg volume getProgressString
+SCRIPTS = brightness setbg volume getProgressString sshot
 
 PREFIX=/usr/local
 

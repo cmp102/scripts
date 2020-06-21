@@ -1,0 +1,25 @@
+#!/bin/sh
+
+SCROTCMD="scrot -s --freeze"
+DMENUARGS="-fn Sans:size=14"
+
+dmenumode(){
+	TIMEOUT=$(echo "0\n1\n3\n5" | dmenu -p "timeout:" $DMENUARGS)
+	TYPE=$(echo "Selection\nFullscreen" | dmenu -p "Mode:" $DMENUARGS)
+	case "$TYPE" in
+		"Selection") SCROTCMD="scrot --freeze -s"
+			;;
+		"Fullscreen") SCROTCMD="scrot"
+			;;
+		*) exit 1a
+			;;
+	esac
+	sleep $TIMEOUT
+}
+
+[ "$1" = "menu" ] && dmenumode
+
+
+$SCROTCMD '/tmp/%F_%T_$wx$h.png' -e \
+	'xclip -selection clipboard -target image/png -i $f && xclip-copyfile $f' && \
+	notify-send -t 1000 "Screenshot 📸"
