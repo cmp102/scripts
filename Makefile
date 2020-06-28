@@ -1,10 +1,24 @@
-SCRIPTS = brightness setbg volume getProgressString sshot sw
+SCRIPTS=brightness setbg volume getProgressString sshot sw
+BINARIES=battery
+SCRIPTS += $(BINARIES)
 
 PREFIX=/usr/local
 
 BINDIR=$(PREFIX)/bin/
 
 SCRIPTSBIN = $(addprefix $(BINDIR),$(SCRIPTS))
+
+CCBATFLAGS=-I/usr/include/gdk-pixbuf-2.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -lpthread -lnotify -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0
+
+CCFLAGS=-Wall -O3
+
+binaries: $(BINARIES)
+
+battery: battery.c
+	$(CC) $(CCBATFLAGS) $(CCFLAGS) battery.c -o battery
+
+clean:
+	rm $(BINARIES)
 
 install: $(SCRIPTSBIN)
 	@echo $(SCRIPTS) installed
@@ -22,5 +36,5 @@ options:
 	@echo PREFIX: $(PREFIX)
 	@echo SCRIPTS: $(SCRIPTS)
 
-.PHONY: install uninstall
+.PHONY: install uninstall binaries
 
