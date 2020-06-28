@@ -1,4 +1,4 @@
-SCRIPTS=brightness setbg volume getProgressString sshot sw
+SCRIPTS=brightness setbg volume sshot sw
 BINARIES=battery progress
 SCRIPTS += $(BINARIES)
 
