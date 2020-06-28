@@ -1,5 +1,5 @@
 SCRIPTS=brightness setbg volume getProgressString sshot sw
-BINARIES=battery
+BINARIES=battery progress
 SCRIPTS += $(BINARIES)
 
 PREFIX=/usr/local
@@ -16,6 +16,9 @@ binaries: $(BINARIES)
 
 battery: battery.c
 	$(CC) $(CCBATFLAGS) $(CCFLAGS) battery.c -o battery
+
+progress: progress.c
+	$(CC) $(CCFLAGS) progress.c -o progress
 
 clean:
 	rm $(BINARIES)

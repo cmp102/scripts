@@ -9,7 +9,7 @@ NOTIF_ID=23333
 notif() {
 	volume=$1
 	[ "$2" = "off" ] && muted="🔇" || muted="🔊"
-	dunstify -t 2000 -r $NOTIF_ID  "Volume: $volume% $muted"   "$(getProgressString 11 "🔴" "⭕" $volume)"
+	dunstify -t 2000 -r $NOTIF_ID  "Volume: $volume% $muted"   "$(progress 11 "🔴" "⭕" $volume)"
 }
 
 toggle() {

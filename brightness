@@ -7,7 +7,7 @@ mkdir $LOCK 2> /dev/null || exit
 NOTIF_ID=24444
 
 notif() {
-	dunstify -t 2000 -r $NOTIF_ID  "Bright: $1%"   "$(getProgressString 11 "🌞" "🌚" $1)"
+	dunstify -t 2000 -r $NOTIF_ID  "Bright: $1%"   "$(progress 11 "🌞" "🌚" $1)"
 }
 
 up() {
