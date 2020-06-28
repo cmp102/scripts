@@ -9,6 +9,7 @@ const char* USAGE=
 int main(int argc, char** argv){
 	if(argc < 5){
 		printf(USAGE, argv[0]);
+		return 1;
 	}
 	int total = atoi(argv[1]);
 	double percentaje = atof(argv[4]);
