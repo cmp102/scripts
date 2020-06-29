@@ -4,12 +4,14 @@ LOCK="/tmp/volume.lock"
 
 mkdir $LOCK 2> /dev/null || exit
 
-NOTIF_ID=23333
-
 notif() {
 	volume=$1
 	[ "$2" = "off" ] && muted="🔇" || muted="🔊"
-	dunstify -t 2000 -r $NOTIF_ID  "Volume: $volume% $muted"   "$(progress 11 "🔴" "⭕" $volume)"
+	notify-send \
+		-t 2000 \
+		-h string:x-canonical-private-synchronous:volume-notify \
+		"Volume: $volume% $muted" \
+		"$(progress 11 "🔴" "⭕" $volume)"
 }
 
 toggle() {
@@ -29,7 +31,6 @@ show() {
 }
 
 $2 $($1 | tail -1 | awk '{print $5" "$6}' | sed -e "s/[^0-9|a-z| ]*//g")
-pkill -RTMIN+10 i3blocks &
-
 
 rm -r $LOCK
+
